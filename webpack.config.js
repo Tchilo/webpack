@@ -2,12 +2,16 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  devtool: 'source-map',
   mode: 'development',
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Template',
       template: './src/index.html',
+      chunks: ['main']
     }),
   ],
   devServer: {
@@ -26,7 +30,10 @@ module.exports = {
     ],
   },
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: '[name]/index.js',
+    path: path.resolve(__dirname, 'public'),
+  },
+  experiments: {
+    topLevelAwait: true
   },
 };
